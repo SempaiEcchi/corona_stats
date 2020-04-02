@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:wamf_playground/wamf_playground.dart';
 
@@ -17,13 +15,11 @@ class MealTrackrPlayground extends StatelessWidget {
           disableScaffold: true,
           builder: (context) => Container(),
         ),
-
         spacerFlexText
       ],
     );
   }
 }
-
 
 ToyBox spacerFlexText = ToyBox(
   issue: 'i-MT-test',
@@ -45,6 +41,6 @@ ToyBox spacerFlexText = ToyBox(
 class TestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-   return Container();
+    return Container();
   }
 }

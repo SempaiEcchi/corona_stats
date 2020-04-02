@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-
 class Router {
-  static Route generator(RouteSettings settings){
+  static Route generator(RouteSettings settings) {
     switch (settings.name) {
       case RouteName.homePage:
         return MaterialPageRoute(
@@ -19,5 +18,4 @@ class Router {
 
 class RouteName {
   static const homePage = '/';
-
 }

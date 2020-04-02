@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:coronastats/provider/_provider.dart';
 import 'package:coronastats/router/router.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
