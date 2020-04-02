@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       providers: providers,
       child: MaterialApp(
         navigatorKey: navigatorKey,
-        title: 'Meal Trackr',
+        title: 'Coronavirus stats',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

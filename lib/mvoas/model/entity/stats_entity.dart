@@ -63,13 +63,22 @@ class Country {
   int _countryTotalCases = 0;
   int _countryTotalDeath = 0;
   int _countryTotalRecovered = 0;
+  List<int> _countryDeathList = [];
+  List<int> _countryRecoveryList = [];
+  List<int> _countryCasesList = [];
 
   Country({
     @required this.name,
     @required this.entries,
   }) {
-    getTotals(entries);
+    getData(entries);
   }
+
+  List<int> get countryDeathList => _countryDeathList;
+
+  List<int> get countryRecoveryList => _countryRecoveryList;
+
+  List<int> get countryCasesList => _countryCasesList;
 
   int get countryTotalRecovered => _countryTotalRecovered;
 
@@ -77,7 +86,13 @@ class Country {
 
   int get countryTotalCases => _countryTotalCases;
 
-  getTotals(List<CountryEntry> entries) {
+  getData(List<CountryEntry> entries) {
+    entries.forEach((CountryEntry entry) {
+      _countryDeathList.add(entry.deaths);
+      _countryRecoveryList.add(entry.recovered);
+      _countryCasesList.add(entry.confirmed);
+    });
+
     var last = entries.last;
     _countryTotalCases = last.confirmed;
     _countryTotalDeath = last.deaths;

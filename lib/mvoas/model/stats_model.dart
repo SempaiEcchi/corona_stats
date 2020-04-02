@@ -9,6 +9,8 @@ class StatsModel implements Disposable {
   StatsService statsService;
 
   BehaviorSubject<AllStatsO> allStatsO$ = BehaviorSubject<AllStatsO>();
+  BehaviorSubject<SelectedCountryO> selectedCountryO$ =
+      BehaviorSubject<SelectedCountryO>();
 
   StatsModel(this.statsService) {
     _init();
@@ -26,8 +28,17 @@ class StatsModel implements Disposable {
     });
   }
 
+  void selectCountry(Country country) {
+    selectedCountryO$.add(SelectedCountryO(country: country));
+  }
+
+  Future<void> fetchJSON() async {
+    return statsService.fetchJSON();
+  }
+
   @override
   Future<void> dispose() {
     allStatsO$.close();
+    selectedCountryO$.close();
   }
 }

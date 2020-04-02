@@ -1,6 +1,9 @@
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:coronastats/mvoas/model/entity/stats_entity.dart';
+import 'package:coronastats/provider/action_provider.dart';
+import 'package:coronastats/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CountryTile extends StatefulWidget {
   final Country country;
@@ -64,12 +67,17 @@ class _CountryTileState extends State<CountryTile> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                    onTap: () {},
-                    child: Icon(
-                      Icons.insert_chart,
-                      size: 40,
-                    )),
+                child: Consumer<SelectCountryA>(builder: (context, a, _) {
+                  return InkWell(
+                      onTap: () {
+                        a(widget.country);
+                        Navigator.pushNamed(context, RouteName.countryStats);
+                      },
+                      child: Icon(
+                        Icons.insert_chart,
+                        size: 40,
+                      ));
+                }),
               ),
             ],
           ),

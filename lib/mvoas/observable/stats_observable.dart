@@ -14,3 +14,11 @@ class AllStatsO {
     @required this.countriesStats,
   });
 }
+
+class SelectedCountryO {
+  final Country country;
+
+  const SelectedCountryO({
+    @required this.country,
+  });
+}

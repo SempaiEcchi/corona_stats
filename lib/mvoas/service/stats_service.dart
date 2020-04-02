@@ -17,7 +17,6 @@ class StatsService implements Disposable {
 
   Future<void> fetchJSON() async {
     final response = await http.get(queryURL);
-
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       StatsE stats = StatsE.fromMap(data);

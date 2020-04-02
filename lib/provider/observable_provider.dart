@@ -13,4 +13,9 @@ List<SingleChildWidget> observableProviders = [
     create: (context) =>
         Provider.of<StatsModel>(context, listen: false).allStatsO$,
   ),
+  StreamProvider<SelectedCountryO>(
+    initialData: SelectedCountryO(),
+    create: (context) =>
+        Provider.of<StatsModel>(context, listen: false).selectedCountryO$,
+  ),
 ];

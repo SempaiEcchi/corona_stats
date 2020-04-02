@@ -1,15 +1,46 @@
 import 'package:coronastats/mvoas/observable/stats_observable.dart';
 import 'package:coronastats/mvoas/view/country_tile.dart';
+import 'package:coronastats/provider/action_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AllStatsO>(builder: (context, stats, _) {
+    return Consumer2<AllStatsO, FetchJSONA>(
+        builder: (context, stats, fetchJSONA, _) {
       final sortedCountries = stats.countriesStats
         ..sort((a, b) => b.countryTotalDeath.compareTo(a.countryTotalDeath));
       return Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              InkWell(
+                  onTap: () {},
+                  child: Icon(
+                    Icons.insert_chart,
+                    size: 40,
+                  )),
+              InkWell(
+                  onTap: () {
+                    fetchJSONA().catchError((e) {
+                      print(e);
+                    });
+                  },
+                  child: Icon(
+                    Icons.refresh,
+                    size: 40,
+                  )),
+              InkWell(
+                  onTap: () {},
+                  child: Icon(
+                    Icons.dehaze,
+                    size: 40,
+                  )),
+            ],
+          ),
+        ),
         backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
