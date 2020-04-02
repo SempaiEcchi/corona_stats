@@ -1,3 +1,4 @@
+import 'package:coronastats/mvoas/view/home_page.dart';
 import 'package:flutter/material.dart';
 
 class Router {
@@ -6,11 +7,11 @@ class Router {
       case RouteName.homePage:
         return MaterialPageRoute(
           settings: settings,
-          builder: (_) => Container(),
+          builder: (_) => HomePage(),
         );
       default:
         return MaterialPageRoute(
-          builder: (_) => Container(),
+          builder: (_) => HomePage(),
         );
     }
   }
