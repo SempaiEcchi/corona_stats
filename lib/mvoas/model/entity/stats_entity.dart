@@ -60,9 +60,7 @@ class StatsE {
 class Country {
   final String name;
   final List<CountryEntry> entries;
-  int _countryTotalCases = 0;
-  int _countryTotalDeath = 0;
-  int _countryTotalRecovered = 0;
+
   List<int> _countryDeathList = [];
   List<int> _countryRecoveryList = [];
   List<int> _countryCasesList = [];
@@ -80,11 +78,11 @@ class Country {
 
   List<int> get countryCasesList => _countryCasesList;
 
-  int get countryTotalRecovered => _countryTotalRecovered;
+  int get countryTotalRecovered => _countryRecoveryList.last.toInt();
 
-  int get countryTotalDeath => _countryTotalDeath;
+  int get countryTotalDeath => _countryDeathList.last.toInt();
 
-  int get countryTotalCases => _countryTotalCases;
+  int get countryTotalCases => _countryCasesList.last.toInt();
 
   getData(List<CountryEntry> entries) {
     entries.forEach((CountryEntry entry) {
@@ -92,11 +90,6 @@ class Country {
       _countryRecoveryList.add(entry.recovered);
       _countryCasesList.add(entry.confirmed);
     });
-
-    var last = entries.last;
-    _countryTotalCases = last.confirmed;
-    _countryTotalDeath = last.deaths;
-    _countryTotalRecovered = last.recovered;
   }
 }
 

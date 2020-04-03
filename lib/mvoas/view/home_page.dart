@@ -1,3 +1,4 @@
+import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:coronastats/mvoas/observable/stats_observable.dart';
 import 'package:coronastats/mvoas/view/country_tile.dart';
 import 'package:coronastats/provider/action_provider.dart';
@@ -13,6 +14,13 @@ class HomePage extends StatelessWidget {
         ..sort((a, b) => b.countryTotalDeath.compareTo(a.countryTotalDeath));
       return Scaffold(
         appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: <Color>[Colors.purple, Colors.blue])),
+          ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -44,90 +52,105 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Flexible(
-                flex: 15,
-                child: CustomScrollView(
-                  slivers: <Widget>[
-                    SliverAppBar(
-                      backgroundColor: Colors.white,
-                      expandedHeight: 300,
-                      flexibleSpace: FlexibleSpaceBar(
-                        background: Container(
-                          color: Colors.white,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "Coronavirus Cases",
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.black),
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.blue, Colors.red])),
+            child: Column(
+              children: <Widget>[
+                globalStatsCard(stats),
+                Flexible(
+                    child: ListView.builder(
+                  itemCount: sortedCountries.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    var country = sortedCountries[index];
+                    return Row(
+                      children: <Widget>[
+                        Spacer(),
+                        Flexible(
+                          flex: 20,
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.lightBlue, width: 1),
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              Text(
-                                stats.globalCases.toString(),
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.black),
-                              ),
-                              Text(
-                                "Deaths",
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.black),
-                              ),
-                              Text(
-                                stats.globalDeath.toString(),
-                                style:
-                                    TextStyle(fontSize: 30, color: Colors.red),
-                              ),
-                              Text(
-                                "Recovered",
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.black),
-                              ),
-                              Text(
-                                stats.globalRecovered.toString(),
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.green),
-                              ),
-                            ],
-                          ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CountryTile(country),
+                              )),
                         ),
-                      ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                        var country = sortedCountries[index];
-                        return Row(
-                          children: <Widget>[
-                            Spacer(),
-                            Flexible(
-                              flex: 20,
-                              child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                        color: Colors.lightBlue, width: 1),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: CountryTile(country),
-                                  )),
-                            ),
-                            Spacer(),
-                          ],
-                        );
-                      }),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+                        Spacer(),
+                      ],
+                    );
+                  },
+                )),
+              ],
+            ),
           ),
         ),
       );
     });
+  }
+
+  Card globalStatsCard(AllStatsO stats) {
+    return Card(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: Colors.lightBlue, width: 1),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ConfigurableExpansionTile(
+            initiallyExpanded: true,
+            header: Text(
+              "Global stats",
+              style: TextStyle(fontSize: 30, color: Colors.black),
+            ),
+            headerExpanded: Text(
+              "Global stats",
+              style: TextStyle(fontSize: 35, color: Colors.blue),
+            ),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Total cases: ${stats.globalCases}'),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Total deaths: ${stats.globalDeath}'),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Total recoveries: ${stats.globalRecovered}'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
