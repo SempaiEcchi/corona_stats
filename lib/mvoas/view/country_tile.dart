@@ -1,6 +1,6 @@
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
+import 'package:coronastats/mvoas/action/actions.dart';
 import 'package:coronastats/mvoas/model/entity/stats_entity.dart';
-import 'package:coronastats/provider/action_provider.dart';
 import 'package:coronastats/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,8 +40,7 @@ class _CountryTileState extends State<CountryTile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Total cases: '),
-                    Text(widget.country.countryTotalCases.toString()),
+                    Text('Total cases: ${widget.country.countryTotalCases}'),
                   ],
                 ),
               ),
@@ -50,8 +49,7 @@ class _CountryTileState extends State<CountryTile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Total deaths: '),
-                    Text(widget.country.countryTotalDeath.toString()),
+                    Text('Total deaths: ${widget.country.countryTotalDeath}'),
                   ],
                 ),
               ),
@@ -60,8 +58,8 @@ class _CountryTileState extends State<CountryTile> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text('Total recoveries: '),
-                    Text(widget.country.countryTotalRecovered.toString()),
+                    Text(
+                        'Total recoveries: ${widget.country.countryTotalRecovered}'),
                   ],
                 ),
               ),

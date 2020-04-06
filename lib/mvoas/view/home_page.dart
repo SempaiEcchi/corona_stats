@@ -1,7 +1,8 @@
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
+import 'package:coronastats/helpers/loading_dialog.dart';
+import 'package:coronastats/mvoas/action/actions.dart';
 import 'package:coronastats/mvoas/observable/stats_observable.dart';
 import 'package:coronastats/mvoas/view/country_tile.dart';
-import 'package:coronastats/provider/action_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,8 +33,12 @@ class HomePage extends StatelessWidget {
                   )),
               InkWell(
                   onTap: () {
-                    fetchJSONA().catchError((e) {
-                      print(e);
+                    showLoadingDialog(context);
+                    Future.delayed(Duration(milliseconds: 500)).then((onValue) {
+                      Navigator.of(context).pop();
+                      return fetchJSONA().catchError((e) {
+                        print(e);
+                      });
                     });
                   },
                   child: Icon(
@@ -74,8 +79,7 @@ class HomePage extends StatelessWidget {
                           flex: 20,
                           child: Card(
                               shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: Colors.lightBlue, width: 1),
+                                side: BorderSide(color: Colors.black, width: 1),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Padding(
